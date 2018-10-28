@@ -11,6 +11,7 @@ bash gitrm.sh
 ~~~~ 
 
 Pour initialiser le dépot
+
 ~~~~ 
 bash gitinit.sh
 ~~~~ 
