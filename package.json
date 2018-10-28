@@ -1,13 +1,13 @@
 {
-  "name": "Simon",
+  "name": "Metalscript",
   "version": "1.0.0",
-  "author": "",
-  "description": "",
+  "author": "S. Daron",
+  "description": "metalsmith stater kit",
   "homepage": "",
   "private": true,
   "repository": {
     "type": "",
-    "url": ""
+    "url": "git@github.com:SDaron/metalscript.git"
   },
   "scripts": {
     "buildSync": "run-s site assets",
@@ -45,7 +45,6 @@
     "metalsmith-i18n": "^0.2.0",
     "metalsmith-in-place": "^4.2.0",
     "metalsmith-layouts": "^2.2.0",
-    "metalsmith-markdown": "^1.0.1",
     "metalsmith-metadata": "0.0.4",
     "metalsmith-paths": "^3.0.1",
     "metalsmith-register-helpers": "^0.4.0",
