@@ -1,0 +1,90 @@
+{
+    "source": "src/pages/",
+    "destination": "dist/",
+    "metadata":{
+		  "name": "Site name",
+		  "desc": "Description",
+		  "author": "Simon P. Daron"
+	  },
+    "clean": false,
+    "deactivated_plugins": {
+        "metalsmith-markdown": true,
+        "metalsmith-convert":[
+          {
+            "src": "**/*.jpg",
+            "resize": {"width": 800, "height": 800, "resizeStyle": "aspectfit"},
+            "nameFormat": "%b%e"
+          }
+        ],
+        "metalsmith-discover-helpers": {
+          "directory": "src/templates/helpers/",
+          "pattern": "/\\.js$/"
+        }
+    },
+    "plugins": {
+        "metalsmith-drafts": true,
+        "metalsmith-data": {
+            "site": "src/data/site.json"
+        },
+        "metalsmith-paths":{
+          "property": "paths"
+        },
+        "metalsmith-slug": {},
+        "metalsmith-i18n":{
+            "default":   "fr",
+            "locales":   ["fr", "en"],
+            "directory": "src/templates/locales"
+        },
+
+        "metalsmith-collections": {
+          "$": "**/*",
+          "images": "**/*.{png,gif,jpg}",
+          "home": {
+			      "pattern": "index.md"
+		      },
+		      "secteurs": {
+			      "pattern": "*/*index.md",
+		        "sortBy": "priority"
+		      },
+		      "public": {
+			      "pattern": "@(articles)/*/**/index.md",
+			      "sortBy": "pubdate",
+            "reverse": true
+		      },
+		      "pages": {
+			      "pattern": "**/index.md",
+			      "sortBy": "pubdate",
+            "reverse": true
+		      }
+        },
+        "metalsmith-collection-metadata":{
+	        "collections.home": {"layout_deactivated": "contact.hbs"}
+        },
+        "metalsmith-register-helpers": {
+            "directory": "src/templates/helpers/"
+        },
+        "metalsmith-discover-partials": {
+          "directory": "src/templates/partials/"
+        },
+        "metalsmith-in-place": {
+            "suppressNoFilesError":true,
+            "engineOptions": {
+                "dialect":"",
+                "html": true,
+                "linkify": true,
+                "typographer": true
+              }
+        },
+        "metalsmith-layouts": {
+            "default":"default.hbs",
+            "suppressNoFilesError":true,
+            "engine": "handlebars",
+            "directory": "src/templates/"
+        },
+        "metalsmith-html-minifier": {
+            "minifierOptions":{
+              "minifyJS":true
+            }
+        }
+    }
+}

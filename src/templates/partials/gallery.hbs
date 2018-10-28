@@ -1,0 +1,25 @@
+<div id="gallery">
+	{{#ancestry.members}}
+		{{#is path.ext ".jpg"}}
+		<img style="max-width:100px;" alt="{{#if exif.ImageDescription}}{{exif.ImageDescription}}{{else}}{{path.name}}{{/if}}" src="{{path.href}}"
+				data-image="{{path.href}}"
+				data-description="">
+		{{/is}}
+	{{/ancestry.members}}
+</div>
+<!--
+<script type="text/javascript">
+	jQuery("#gallery").unitegallery({
+		tiles_type:"nested",
+		tiles_space_between_cols: 10,			//space between images
+		tiles_space_between_cols_mobile: 10,     //space between cols for mobile type
+		tile_enable_border:true,			//enable border of the tile
+		tile_border_width:4,				//tile border width
+		tile_border_color:"#FFF",		//tile border color
+		tile_border_radius:0,				//tile border radius (applied to border only, not to outline)
+
+		tile_enable_outline: true,			//enable outline of the tile (works only together with the border)
+		tile_outline_color: "#CCC",		//tile outline color
+	});
+</script>
+-->

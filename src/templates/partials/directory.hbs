@@ -1,0 +1,8 @@
+{{#isEmpty (match pages (concat paths.dir '/*/index.*'))}}
+{{else}}
+  <ul class="">
+      {{#each (match pages (concat paths.dir '/*/*.md'))}}
+                    <li>{{> link images=../images}}</li>
+      {{/each}} 
+  </ul>    
+{{/isEmpty}}
