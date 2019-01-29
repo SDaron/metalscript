@@ -8,18 +8,6 @@
 	  },
     "clean": false,
     "deactivated_plugins": {
-        "metalsmith-markdown": true,
-        "metalsmith-convert":[
-          {
-            "src": "**/*.jpg",
-            "resize": {"width": 800, "height": 800, "resizeStyle": "aspectfit"},
-            "nameFormat": "%b%e"
-          }
-        ],
-        "metalsmith-discover-helpers": {
-          "directory": "src/templates/helpers/",
-          "pattern": "/\\.js$/"
-        }
     },
     "plugins": {
         "metalsmith-drafts": true,
@@ -36,6 +24,24 @@
             "directory": "src/templates/locales"
         },
 
+        "metalsmith-sharp":[
+          {
+            "src": "**/*.jpg",
+            "namingPattern": "{dir}{base}",
+            "methods": [
+              {
+                "name": "resize",
+                "args":{
+                    "width": 800,
+                    "height": 800,
+                    "fit":"inside",
+                    "withoutEnlargement":true
+                }             
+              }
+            ],
+            "moveFile": false
+          }
+        ],
         "metalsmith-collections": {
           "$": "**/*",
           "images": "**/*.{png,gif,jpg}",
