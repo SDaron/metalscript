@@ -1,5 +1,12 @@
 {
 		  "title": "Nom du site",
 		  "description": "Une belle description",
+		  "url": "http://www.monsite.tld",
+		  "geo": {
+        "latitude": 50.6333,
+        "longitude": 4.2,
+        "placename": "Virginal-Samme",
+        "region": "BE-WAL"
+      },
 		  "creator": "S. Daron"
 }
