@@ -1,3 +1,16 @@
+.fs-70{font-size:70%;}
+.fs-80{font-size:80%;}
+.fs-90{font-size:90%;}
+.fs-100{font-size:100%;}
+.fs-110{font-size:110%;}
+.fs-120{font-size:120%;}
+.fs-130{font-size:130%;}
+.fs-140{font-size:140%;}
+.fs-150{font-size:150%;}
+.fs-200{font-size:200%;}
+.fs-250{font-size:250%;}
+.fs-300{font-size:300%;}
+
 .noviceOnly{display:none;}
 .novice .noviceOnly{display:block;}
 .skilledOnly{display:none;}
