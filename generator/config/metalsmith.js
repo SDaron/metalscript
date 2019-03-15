@@ -1,27 +1,32 @@
-{
-    "source": "src/pages/",
-    "destination": "dist/",
+const paths = require('./paths');
+module.exports = {
     "metadata":{
-		  "name": "Site name",
-		  "desc": "Description",
-		  "author": "Simon P. Daron"
+		  "author": "Simon P. Daron",
+		  "email": "simon@surlaterre.org"
 	  },
     "clean": false,
-    "deactivated_plugins": {
-    },
     "plugins": {
         "metalsmith-drafts": true,
         "metalsmith-data": {
-            "site": "src/data/site.json"
+            "site": paths.source+"/metadata.json"
         },
         "metalsmith-paths":{
           "property": "paths"
         },
+        "metalsmith-default-values":[
+        {
+          pattern : '*.md',
+          defaults: {
+            title: function (file) {
+              return file.paths.dir;
+            }
+          }
+        }],
         "metalsmith-slug": {},
         "metalsmith-i18n":{
             "default":   "fr",
             "locales":   ["fr", "en"],
-            "directory": "src/templates/locales"
+            "directory": paths.templates+"/locales"
         },
 
         "metalsmith-sharp":[
@@ -64,13 +69,13 @@
 		      }
         },
         "metalsmith-collection-metadata":{
-	        "collections.home": {"layout_deactivated": "contact.hbs"}
+	        "collections.home": {}
         },
         "metalsmith-register-helpers": {
-            "directory": "src/templates/helpers/"
+            "directory": "helpers/"
         },
         "metalsmith-discover-partials": {
-          "directory": "src/templates/partials/"
+          "directory": paths.templates+"/partials/"
         },
         "metalsmith-in-place": {
             "suppressNoFilesError":true,
@@ -81,11 +86,15 @@
                 "typographer": true
               }
         },
+        "metalsmith-untemplatize": {
+          "key": "body"
+        },
         "metalsmith-layouts": {
+            "pattern":"*.html",
             "default":"default.hbs",
             "suppressNoFilesError":true,
             "engine": "handlebars",
-            "directory": "src/templates/"
+            "directory": paths.templates+"/layouts/"
         },
         "metalsmith-html-minifier": {
             "minifierOptions":{

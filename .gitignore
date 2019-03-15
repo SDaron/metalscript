@@ -1,5 +1,6 @@
 # Build output
 /dist
 # Dependencies
-/node_modules
-yarn.lock
+generator/node_modules
+generator/yarn.lock
+generator/yarn-error.log
