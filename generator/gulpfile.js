@@ -75,10 +75,10 @@ const statics = gulp.task('statics', function() {
         .pipe(gulp.dest(path.join(__dirname, config.paths.destination, 'statics')));
 });
 
-const compile = gulp.series('contents',gulp.parallel(['styles', 'statics']));
+const compile = gulp.task('compile', gulp.series('contents',gulp.parallel(['styles', 'statics'])));
 
 const watch = gulp.task('watch', function() {
-  gulp.watch(['gulpfile.js', 'config/metalsmith.js', 'config/paths.js'], gulp.series(compile));
+  gulp.watch(['gulpfile.js', 'config/metalsmith.js', 'config/paths.js'], gulp.series('compile'));
   gulp.watch([config.paths.styles+'/**/*'], gulp.series('styles'));
   gulp.watch([config.paths.statics+'/**/*'], gulp.series('statics'));
   gulp.watch([
@@ -89,7 +89,7 @@ const watch = gulp.task('watch', function() {
   ], gulp.series('contents'));
 });
 
-const serve = gulp.task('serve', gulp.series(compile, function(callback) {
+const serve = gulp.task('serve', gulp.series('compile', function(callback) {
   var http = require('http');
   var serveStatic = require('serve-static');
   var finalhandler = require('finalhandler');
@@ -114,6 +114,6 @@ const serve = gulp.task('serve', gulp.series(compile, function(callback) {
   });
 }));
 
-gulp.task('start', gulp.series(compile, gulp.parallel(['watch','serve','browserSync'])));
+gulp.task('start', gulp.series('compile', gulp.parallel(['watch','serve','browserSync'])));
 
 

@@ -14,11 +14,10 @@
     "contents": "gulp contents",
     "styles": "gulp styles",
     "statics": "gulp statics",
-    "compile": "gulp compile",
+    "build": "gulp compile",
     "start": "gulp start",
     "serve": "gulp serve",
     "watch": "gulp watch",
-    "build": "run-s contents styles statics",
     "clean": "rm -R -v dist/"
   },
   "dependencies": {
