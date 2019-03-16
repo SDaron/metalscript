@@ -4,7 +4,7 @@
           <nav class="nav nav-masthead justify-content-center">
             <a class="nav-link {{#eq paths.dir ""}}active{{/eq}}" href="/">Home</a>
             {{#each secteurs}}
-              {{#unless private}}
+              {{#unless hidden}}
               <a class="nav-link {{#contains ../paths.dhref paths.dhref}}active{{/contains}}" href="{{paths.dhref}}">{{title}}</a>
               {{/unless}}
             {{/each}}
