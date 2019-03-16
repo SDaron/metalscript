@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:SDaron/generator.git
+	branch = master
+	commit = 751b022948447c8d554ffca4e34ae5f9d46173ac
+	parent = 074852f15f5abffbff43994f0dc9bf6b905116b0
+	method = merge
+	cmdver = 0.4.0
