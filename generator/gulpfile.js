@@ -41,7 +41,7 @@ const clean = gulp.task('clean', function () {
     return del([config.paths.destination]);
 });
 const contents = gulp.task('contents', function(callback) {
-  console.log(process.cwd(),__dirname)
+
   let ms = new Metalsmith(__dirname);
   let plugins = config.metalsmith.plugins || {};
 
@@ -91,7 +91,12 @@ const statics = gulp.task('statics', function() {
 const compile = gulp.task('compile', gulp.series('contents',gulp.parallel(['styles', 'statics'])));
 
 const watch = gulp.task('watch', function() {
-  gulp.watch(['gulpfile.js', 'config/metalsmith.js', 'config/paths.js', '../config.js'], gulp.series('compile'));
+  gulp.watch([
+    'gulpfile.js', 
+    './config/metalsmith.js', 
+    './config/paths.js', 
+    '../config.js'
+  ], gulp.series('compile',reload));
   gulp.watch([config.paths.styles+'/**/*'], gulp.series('styles'));
   gulp.watch([config.paths.statics+'/**/*'], gulp.series('statics'));
   gulp.watch([
