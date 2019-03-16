@@ -90,7 +90,7 @@ module.exports = {
           "key": "body"
         },
         "metalsmith-layouts": {
-            "pattern":"*.html",
+            "pattern":"**/*.html",
             "default":"default.hbs",
             "suppressNoFilesError":true,
             "engine": "handlebars",

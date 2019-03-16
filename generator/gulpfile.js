@@ -1,12 +1,7 @@
 //https://www.evocode.com/blog/mastering-metalsmith-best-practices-for-static-sites/
-// CONFIG
-const config = {
-  metalsmith: require('./config/metalsmith'),
-  paths: require('./config/paths')
-}
-
 // Common
 const path = require('path');
+const merge = require('deepmerge');
 const argv = require('minimist')(process.argv.slice(2));
 const gulp = require('gulp');
 const sass = require('gulp-sass');
@@ -15,11 +10,16 @@ var browserSync = require('browser-sync');
 const Metalsmith = require('metalsmith');
 
 // Configuration
+const config = {
+  metalsmith: require('./config/metalsmith.js'),
+  paths: require('./config/paths')
+}
 const args = {
   build: !!argv.build,
   production: !!argv.production
 };
 
+// GULP
 const sync = gulp.task('browserSync', function() {
   browserSync({
     server: {
