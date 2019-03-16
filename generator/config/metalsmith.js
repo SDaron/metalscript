@@ -1,4 +1,5 @@
 const paths = require('./paths');
+const path = require('path');
 module.exports = {
     "metadata":{
 		  "author": "Simon P. Daron",
@@ -14,19 +15,20 @@ module.exports = {
           "property": "paths"
         },
         "metalsmith-default-values":[
-        {
-          pattern : '*.md',
-          defaults: {
-            title: function (file) {
-              return file.paths.dir;
+          {
+            pattern : '**/*.md',
+            defaults: {
+              title: function (file) {
+                return (file.paths.name == 'index')?file.paths.dir.split(path.sep).pop():file.paths.name;
+              }
             }
           }
-        }],
+        ],
         "metalsmith-slug": {},
         "metalsmith-i18n":{
             "default":   "fr",
             "locales":   ["fr", "en"],
-            "directory": paths.templates+"/locales"
+            "directory": paths.locales
         },
 
         "metalsmith-sharp":[
@@ -54,17 +56,12 @@ module.exports = {
 			      "pattern": "index.md"
 		      },
 		      "secteurs": {
-			      "pattern": "*/*index.md",
-		        "sortBy": "priority"
-		      },
-		      "public": {
-			      "pattern": "@(articles)/*/**/index.md",
-			      "sortBy": "pubdate",
-            "reverse": true
+			      "pattern": "*/index.md",
+		        "sortBy": "order"
 		      },
 		      "pages": {
 			      "pattern": "**/index.md",
-			      "sortBy": "pubdate",
+			      "sortBy": "path",
             "reverse": true
 		      }
         },
@@ -72,10 +69,10 @@ module.exports = {
 	        "collections.home": {}
         },
         "metalsmith-register-helpers": {
-            "directory": "helpers/"
+            "directory": paths.helpers
         },
         "metalsmith-discover-partials": {
-          "directory": paths.templates+"/partials/"
+          "directory": paths.partials
         },
         "metalsmith-in-place": {
             "suppressNoFilesError":true,
@@ -94,7 +91,7 @@ module.exports = {
             "default":"default.hbs",
             "suppressNoFilesError":true,
             "engine": "handlebars",
-            "directory": paths.templates+"/layouts/"
+            "directory": paths.layouts
         },
         "metalsmith-html-minifier": {
             "minifierOptions":{
