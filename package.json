@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "clean": "cd generator && yarn clean",
+    "build": "cd generator && yarn build",
+    "start": "cd generator && yarn start"
+  }
+}

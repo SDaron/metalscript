@@ -6,14 +6,18 @@ const argv = require('minimist')(process.argv.slice(2));
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
-var browserSync = require('browser-sync');
+const browserSync = require('browser-sync');
 const Metalsmith = require('metalsmith');
 
 // Configuration
-const config = {
+// Configuration
+const common_config = {
   metalsmith: require('./config/metalsmith.js'),
   paths: require('./config/paths')
 }
+const local_config = require('../config.js');
+const config = merge(common_config,local_config)
+
 const args = {
   build: !!argv.build,
   production: !!argv.production
@@ -78,7 +82,7 @@ const statics = gulp.task('statics', function() {
 const compile = gulp.task('compile', gulp.series('contents',gulp.parallel(['styles', 'statics'])));
 
 const watch = gulp.task('watch', function() {
-  gulp.watch(['gulpfile.js', 'config/metalsmith.js', 'config/paths.js'], gulp.series('compile'));
+  gulp.watch(['gulpfile.js', 'config/metalsmith.js', 'config/paths.js', '../config.js'], gulp.series('compile'));
   gulp.watch([config.paths.styles+'/**/*'], gulp.series('styles'));
   gulp.watch([config.paths.statics+'/**/*'], gulp.series('statics'));
   gulp.watch([

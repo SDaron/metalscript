@@ -18,7 +18,7 @@
     "start": "gulp start",
     "serve": "gulp serve",
     "watch": "gulp watch",
-    "clean": "rm -R -v dist/"
+    "clean": "rm -R -v ../dist/"
   },
   "dependencies": {
     "autoprefixer": "^9.2.1",
