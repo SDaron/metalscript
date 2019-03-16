@@ -1,5 +1,5 @@
 module.exports = {
-    "source": "../contents",
+    "contents": "../contents",
     "templates": "../templates",
     "styles": "../templates/styles",
     "statics": "../templates/statics",

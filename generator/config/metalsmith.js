@@ -8,7 +8,7 @@ module.exports = {
     "plugins": {
         "metalsmith-drafts": true,
         "metalsmith-data": {
-            "metadata": paths.source+"/metadata.json"
+            "metadata": paths.contents+"/metadata.json"
         },
         "metalsmith-paths":{
           "property": "paths"

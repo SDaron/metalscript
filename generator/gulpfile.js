@@ -31,18 +31,24 @@ const sync = gulp.task('browserSync', function() {
     },
   })
 });
+const reload = (callback) => {
+  browserSync.reload();
+  callback(); 
+}
 
 const clean = gulp.task('clean', function () {
     // Return the promise that del produces.
     return del([config.paths.destination]);
 });
 const contents = gulp.task('contents', function(callback) {
-  let ms = new Metalsmith(process.cwd());
+  console.log(process.cwd(),__dirname)
+  let ms = new Metalsmith(__dirname);
   let plugins = config.metalsmith.plugins || {};
 
-  ms.source(config.paths.source);
+  ms.source(config.paths.contents);
   ms.destination(config.paths.destination);
   ms.metadata(config.metalsmith.metadata);
+  ms.clean(config.metalsmith.clean);
 
   Object.keys(plugins).forEach(function(key) {
     var plugin = require(key);
@@ -75,8 +81,11 @@ const styles = gulp.task('styles', function() {
 });
 
 const statics = gulp.task('statics', function() {
-    return gulp.src(path.join(__dirname,config.paths.statics,'/*.*'))
-        .pipe(gulp.dest(path.join(__dirname, config.paths.destination, 'statics')));
+  return gulp.src(path.join(__dirname,config.paths.statics,'/*.*'))
+    .pipe(gulp.dest(path.join(__dirname, config.paths.destination, 'statics')))
+    .pipe(browserSync.reload({
+      stream: true
+    }));
 });
 
 const compile = gulp.task('compile', gulp.series('contents',gulp.parallel(['styles', 'statics'])));
@@ -90,7 +99,7 @@ const watch = gulp.task('watch', function() {
     config.paths.layouts+'/**/*',
     config.paths.partials+'/**/*',
     config.paths.locales+'/**/*'
-  ], gulp.series('contents'));
+  ], gulp.series('contents',reload));  
 });
 
 const serve = gulp.task('serve', gulp.series('compile', function(callback) {
