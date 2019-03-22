@@ -2,14 +2,17 @@ const paths = require('./paths');
 const path = require('path');
 module.exports = {
     "metadata":{
-		  "author": "Simon P. Daron",
-		  "email": "simon@surlaterre.org"
+      "creator":{
+  		  "name": "Simon P. Daron",
+	  	  "url": "https://www.linkedin.com/in/simon-daron-5b1bab8b/",
+	  	  "email": "simon@surlaterre.org"
+      }
 	  },
     "clean": false,
     "plugins": {
         "metalsmith-drafts": true,
         "metalsmith-data": {
-            "metadata": paths.contents+"/metadata.json"
+          "site": paths.contents+"/site.json"
         },
         "metalsmith-paths":{
           "property": "paths"
@@ -30,28 +33,10 @@ module.exports = {
             "locales":   ["fr", "en"],
             "directory": paths.locales
         },
-
-        "metalsmith-sharp":[
-          {
-            "src": "**/*.jpg",
-            "namingPattern": "{dir}{base}",
-            "methods": [
-              {
-                "name": "resize",
-                "args":{
-                    "width": 800,
-                    "height": 800,
-                    "fit":"inside",
-                    "withoutEnlargement":true
-                }             
-              }
-            ],
-            "moveFile": false
-          }
-        ],
         "metalsmith-collections": {
           "$": "**/*",
-          "images": "**/*.{png,gif,jpg}",
+          "files": "**/*.{pdf,docx}",
+          "images": "**/*.{png,gif,jpg,jpeg}",
           "home": {
 			      "pattern": "index.md"
 		      },
@@ -66,7 +51,6 @@ module.exports = {
 		      }
         },
         "metalsmith-collection-metadata":{
-	        "collections.home": {}
         },
         "metalsmith-register-helpers": {
             "directory": paths.helpers
