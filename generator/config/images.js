@@ -11,6 +11,7 @@ module.exports = {
       quality: 80,
       errorOnEnlargement: false,
       errorOnUnusedImage:false,
+      errorOnUnusedConfig:false,
       withoutEnlargement: true
     }
 };
