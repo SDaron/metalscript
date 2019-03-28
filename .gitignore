@@ -5,3 +5,5 @@
 generator/node_modules
 generator/yarn.lock
 generator/yarn-error.log
+#others
+.~lock*
