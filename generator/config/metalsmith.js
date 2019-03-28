@@ -45,7 +45,7 @@ module.exports = {
 		        "sortBy": "order"
 		      },
 		      "pages": {
-			      "pattern": "**/index.md",
+			      "pattern": "**/*.md",
 			      "sortBy": "path",
             "reverse": true
 		      }
@@ -78,8 +78,11 @@ module.exports = {
             "directory": paths.layouts
         },
         "metalsmith-html-minifier": {
+            "pattern": "**/*.html",
             "minifierOptions":{
-              "minifyJS":true
+              "minifyJS":true,
+              "minifyCSS":{inline: ['all']},
+              "removeComments":true
             }
         }
     }
