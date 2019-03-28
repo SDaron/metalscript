@@ -2,7 +2,7 @@ module.exports = {
     config:{
       '**/*.*': {
         width: 1280,
-        height: 1280
+        fit:"inside"
       }
     },
     options:{
