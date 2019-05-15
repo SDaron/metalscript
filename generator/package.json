@@ -52,6 +52,7 @@
     "metalsmith-layouts": "^2.2.0",
     "metalsmith-markdown": "^1.0.1",
     "metalsmith-metadata": "0.0.4",
+    "metalsmith-metadata-reader": "./lib/metalsmith-metadata-reader/",
     "metalsmith-paths": "^3.0.1",
     "metalsmith-register-helpers": "^0.4.0",
     "metalsmith-sharp": "^2.1.1",

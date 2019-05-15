@@ -17,12 +17,16 @@ module.exports = {
         "metalsmith-paths":{
           "property": "paths"
         },
+        "metalsmith-metadata-reader":{
+            pattern : '**/*.+(jpg)'
+        },
         "metalsmith-default-values":[
           {
             pattern : '**/*.md',
             defaults: {
               title: function (file) {
-                return (file.paths.name == 'index')?file.paths.dir.split(path.sep).pop():file.paths.name;
+                let title =  (file.paths.name == 'index')?file.paths.dir.split(path.sep).pop():file.paths.name;
+                return title.match(/(^[\s\d\-\_]+)?(.*)$/)[2]; //delete leading -, numbers and space
               }
             }
           }
@@ -35,7 +39,7 @@ module.exports = {
         },
         "metalsmith-collections": {
           "$": "**/*",
-          "files": "**/*.{pdf,docx}",
+          "files": "**/*.{pdf,docx,ods,odt}",
           "images": "**/*.{png,gif,jpg,jpeg}",
           "home": {
 			      "pattern": "index.md"
