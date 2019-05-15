@@ -17,8 +17,7 @@ module.exports = {
         "metalsmith-paths":{
           "property": "paths"
         },
-        "metalsmith-metadata-reader":{
-            pattern : '**/*.+(jpg)'
+        "metalsmith-xmp-reader":{
         },
         "metalsmith-default-values":[
           {

@@ -1,38 +1,19 @@
-
-{{#with (match images (concat paths.dir '/*.{png,gif,jpg}')) as |gallery|}}
-
-
-  {{#if (eq 1 (length gallery))}}
-    {{#each gallery}}
-      <img src="{{paths.href}}"/>
-    {{/each}}
-  {{else}}
-
-    <div id="gallery" style="display:none;">
+???
+{{#with (match @root.images (concat paths.dir '/*.{png,gif,jpg}')) as |gallery|}}
+???
+    <div id="gallery">
       {{#each gallery}}
-		      <img alt="{{paths.name}}" src="{{paths.href}}"
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" alt="{{paths.name}}" src="{{paths.href}}"
 				      data-image="{{paths.href}}"
-				      data-description="">
+				      data-description="{{xpm.description}}">
+          <div class="card-body">
+            <h5 class="card-title">{{xmp.title}}</h5>
+            <p class="card-text">{{xmp.description}}</p>
+          </div>
+        </div>
       {{/each}}
     </div>
-    <script type="text/javascript">
-      $( document ).ready(function() {
-	      jQuery("#gallery").unitegallery({
-		      tiles_type:"nested",
-		      tiles_space_between_cols: 10,			//space between images
-		      tiles_space_between_cols_mobile: 10,     //space between cols for mobile type
-		      tile_enable_border:true,			//enable border of the tile
-		      tile_border_width:4,				//tile border width
-		      tile_border_color:"#FFF",		//tile border color
-		      tile_border_radius:0,				//tile border radius (applied to border only, not to outline)
-
-		      tile_enable_outline: true,			//enable outline of the tile (works only together with the border)
-		      tile_outline_color: "#CCC",		//tile outline color
-	      });
-      });
-    </script>
-
-  {{/if}}
 
 {{/with}}
 
