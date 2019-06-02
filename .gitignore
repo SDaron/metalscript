@@ -1,6 +1,7 @@
 # Build output
 /dist
 /html
+/tmp
 # Dependencies
 generator/node_modules
 generator/yarn.lock

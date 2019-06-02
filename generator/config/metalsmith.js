@@ -25,7 +25,7 @@ module.exports = {
             defaults: {
               title: function (file) {
                 let title =  (file.paths.name == 'index')?file.paths.dir.split(path.sep).pop():file.paths.name;
-                return title.match(/(^[\s\d\-\_]+)?(.*)$/)[2]; //delete leading -, numbers and space
+                return title.match(/(^[\s\d\-\_]+)?(.*)$/)[2].replace('_', ' '); //delete leading -, numbers and space
               }
             }
           }

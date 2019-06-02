@@ -6,5 +6,6 @@ module.exports = {
     "locales": "../templates/locales",
     "partials": "../templates/partials",
     "layouts": "../templates/layouts",
+    "temp": "../tmp",
     "destination": "../dist"
 }

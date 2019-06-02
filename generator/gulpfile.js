@@ -4,6 +4,8 @@ const path = require('path');
 const merge = require('deepmerge');
 const argv = require('minimist')(process.argv.slice(2));
 const gulp = require('gulp');
+const gulprename = require("gulp-rename");
+const gulpclean = require('gulp-clean');
 const sass = require('gulp-sass');
 const cache = require('gulp-cached');
 const responsive = require('gulp-responsive');
@@ -39,8 +41,27 @@ const reload = (callback) => {
 
 const clean = gulp.task('clean', function () {
     // Return the promise that del produces.
-    return del([config.paths.destination]);
+    return gulp.src(path.join(__dirname, config.paths.destination, '/**/*.*'))
+        .pipe(gulpclean({force: true}))
 });
+
+const rename = gulp.task('rename', function () {
+    // rename via function
+    let slugify = function(str){
+      return str.replace(/\s+/g, '_').toLowerCase()
+    };
+    return gulp.src( path.join(__dirname, config.paths.contents, '/**/*.*'))
+      .pipe(gulprename(function (filepath) {
+        filepath.dirname = filepath.dirname.split(path.sep).map(dir => slugify(dir)).join(path.sep);
+        filepath.basename = slugify(filepath.basename);
+        filepath.extname = filepath.extname;
+      }))
+      .pipe(gulp.dest(path.join(__dirname, config.paths.temp))); // ./dist/main/text/ciao/hello-goodbye.md
+});
+
+ 
+
+
 const contents = gulp.task('contents', function(callback) {
   try {
     let local_config = require('../config/metalsmith.js');
@@ -53,7 +74,7 @@ const contents = gulp.task('contents', function(callback) {
   let ms = new Metalsmith(__dirname);
   let plugins = config.metalsmith.plugins || {};
 
-  ms.source(config.paths.contents);
+  ms.source(config.paths.temp);
   ms.destination(config.paths.destination);
   ms.metadata(config.metalsmith.metadata);
   ms.clean(config.metalsmith.clean);
@@ -82,7 +103,7 @@ const images = gulp.task('images', function(){
   } catch (ex) {
       //handleErr(ex);
   }
-  return gulp.src( path.join(__dirname, config.paths.contents, '/**/*.+(jpeg|jpg|png|tiff|webp)'))
+  return gulp.src( path.join(__dirname, config.paths.temp, '/**/*.+(jpeg|jpg|png|tiff|webp)'))
     .pipe(cache('images'))
     .pipe(responsive(config.images.config,config.images.options))
     .pipe(gulp.dest(path.join(__dirname, config.paths.destination)));
@@ -113,7 +134,7 @@ const statics = gulp.task('statics', function() {
     }));
 });
 
-const compile = gulp.task('compile', gulp.series('contents','images',gulp.parallel(['styles', 'statics'])));
+const compile = gulp.task('compile', gulp.series('rename','contents','images',gulp.parallel(['styles', 'statics'])));
 
 const watch = gulp.task('watch', function() {
   gulp.watch([
@@ -127,10 +148,11 @@ const watch = gulp.task('watch', function() {
     '../config/images.js',
     config.paths.contents+'/**/*.+(jpeg|jpg|png|tiff|webp)'
   ], gulp.series('contents','images',reload));
+  gulp.watch([config.paths.contents+'/**/*'], gulp.series('rename'));
   gulp.watch([
     './config/metalsmith.js', 
     '../config/metalsmith.js',
-    config.paths.contents+'/**/*.!(jpeg|jpg|png|tiff|webp)',
+    config.paths.temp+'/**/*.!(jpeg|jpg|png|tiff|webp)',
     config.paths.layouts+'/**/*',
     config.paths.partials+'/**/*',
     config.paths.locales+'/**/*'
