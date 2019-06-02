@@ -5,7 +5,7 @@
             <a class="nav-link {{#eq paths.dir ""}}active{{/eq}}" href="/">Home</a>
             {{#each secteurs}}
               {{#unless hidden}}
-              <a class="nav-link {{#contains ../paths.dhref paths.dhref}}active{{/contains}}" href="{{paths.dhref}}">{{title}}</a>
+              <a class="nav-link {{#contains ../paths.dhref paths.dhref}}active{{/contains}} capFirst" href="{{paths.dhref}}">{{title}}</a>
               {{/unless}}
             {{/each}}
           </nav>

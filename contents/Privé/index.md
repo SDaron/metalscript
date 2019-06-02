@@ -1,5 +1,4 @@
 ---
-title: Prive
 private: true
 ---
 

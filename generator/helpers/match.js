@@ -23,12 +23,8 @@ module.exports = function(collection, pattern, options) {
       debug('helper "select": Pattern is missing');
   }
 
-
-  if (!pattern) {
-      debug('helper "select": Pattern is not a string:', pattern);
-  }
   //console.log(typeof collection,typeof pattern);
-  if (typeof collection === 'object' && typeof pattern === 'string') {
+  if (typeof collection === 'object') {
     for (var i = 0; i < collection.length; i++) {
         //debug('check',collection[i].path, opts.pattern,multimatch(collection[i].path, opts.pattern)?'multimatched':'');
         if (multimatch(collection[i].path, pattern).length > 0) {

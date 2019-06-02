@@ -1,5 +1,4 @@
 ---
-title: Article 1
 description:
 date-start:
 date-end:
