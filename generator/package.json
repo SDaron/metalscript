@@ -16,7 +16,7 @@
     "styles": "gulp styles",
     "statics": "gulp statics",
     "build": "gulp compile",
-    "rename": "gulp rename",
+    "prepare": "gulp prepare",
     "start": "gulp start",
     "serve": "gulp serve",
     "watch": "gulp watch",

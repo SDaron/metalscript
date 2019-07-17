@@ -41,7 +41,13 @@ const reload = (callback) => {
 
 const clean = gulp.task('clean', function () {
     // Return the promise that del produces.
-    return gulp.src(path.join(__dirname, config.paths.destination, '/**/*.*'))
+    return gulp.src(path.join(__dirname, config.paths.destination),{allowEmpty:true})
+        .pipe(gulpclean({force: true,allowEmpty:true}))
+});
+
+const cleanTemp = gulp.task('cleanTemp', function () {
+    // Return the promise that del produces.
+    return gulp.src(path.join(__dirname, config.paths.temp),{allowEmpty:true})
         .pipe(gulpclean({force: true}))
 });
 
@@ -50,7 +56,7 @@ const rename = gulp.task('rename', function () {
     let slugify = function(str){
       return str.replace(/\s+/g, '_').toLowerCase()
     };
-    return gulp.src( path.join(__dirname, config.paths.contents, '/**/*.*'))
+    return gulp.src( path.join(__dirname, config.paths.contents, '**/*.*'))
       .pipe(gulprename(function (filepath) {
         filepath.dirname = filepath.dirname.split(path.sep).map(dir => slugify(dir)).join(path.sep);
         filepath.basename = slugify(filepath.basename);
@@ -59,9 +65,8 @@ const rename = gulp.task('rename', function () {
       .pipe(gulp.dest(path.join(__dirname, config.paths.temp))); // ./dist/main/text/ciao/hello-goodbye.md
 });
 
+const prepare = gulp.task('prepare', gulp.series('cleanTemp','rename'));
  
-
-
 const contents = gulp.task('contents', function(callback) {
   try {
     let local_config = require('../config/metalsmith.js');
@@ -134,7 +139,7 @@ const statics = gulp.task('statics', function() {
     }));
 });
 
-const compile = gulp.task('compile', gulp.series('rename','contents','images',gulp.parallel(['styles', 'statics'])));
+const compile = gulp.task('compile', gulp.series('prepare','contents',gulp.parallel(['styles', 'statics']),'images'));
 
 const watch = gulp.task('watch', function() {
   gulp.watch([
@@ -148,11 +153,10 @@ const watch = gulp.task('watch', function() {
     '../config/images.js',
     config.paths.contents+'/**/*.+(jpeg|jpg|png|tiff|webp)'
   ], gulp.series('contents','images',reload));
-  gulp.watch([config.paths.contents+'/**/*'], gulp.series('rename'));
+  gulp.watch([config.paths.contents+'/**/*'], gulp.series('prepare','contents',reload));
   gulp.watch([
     './config/metalsmith.js', 
     '../config/metalsmith.js',
-    config.paths.temp+'/**/*.!(jpeg|jpg|png|tiff|webp)',
     config.paths.layouts+'/**/*',
     config.paths.partials+'/**/*',
     config.paths.locales+'/**/*'
