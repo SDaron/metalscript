@@ -21,11 +21,11 @@ module.exports = {
         },
         "metalsmith-default-values":[
           {
-            pattern : '**/*.md',
+            pattern : '**/*.*',
             defaults: {
               title: function (file) {
                 let title =  (file.paths.name == 'index')?file.paths.dir.split(path.sep).pop():file.paths.name;
-                return title.match(/(^[\s\d\-\_]+)?(.*)$/)[2].replace('_', ' '); //delete leading -, numbers and space
+                return title.match(/(^[\s\d\-\_]+)?(.*)$/)[2].replace(/_/g, ' '); //delete leading -, numbers and space
               }
             }
           }
@@ -37,21 +37,22 @@ module.exports = {
             "directory": paths.locales
         },
         "metalsmith-collections": {
-          "$": "**/*",
-          "files": "**/*.{pdf,docx,ods,odt}",
-          "images": "**/*.{png,gif,jpg,jpeg}",
-          "home": {
-			      "pattern": "index.md"
-		      },
-		      "secteurs": {
-			      "pattern": "*/index.md",
-		        "sortBy": "order"
-		      },
-		      "pages": {
-			      "pattern": "**/*.md",
-			      "sortBy": "path",
-            "reverse": true
-		      }
+			"$": "**/*",
+			"files": "**/*.{pdf,docx,ods,odt}",
+			"images": "**/*.{png,gif,jpg,jpeg}",
+			"sounds": "**/*.{mp3,ogg,wav}",
+			"home": {
+				"pattern": "index.md"
+			},
+			"secteurs": {
+				"pattern": "*/index.md",
+				"sortBy": "order"
+			},
+			"pages": {
+				"pattern": "**/*.md",
+				"sortBy": "path",
+				"reverse": true
+			}
         },
         "metalsmith-collection-metadata":{
         },
