@@ -6,6 +6,7 @@ const argv = require('minimist')(process.argv.slice(2));
 const gulp = require('gulp');
 const gulprename = require("gulp-rename");
 const gulpclean = require('gulp-clean');
+const changed = require('gulp-changed');
 const sass = require('gulp-sass');
 const cache = require('gulp-cached');
 const responsive = require('gulp-responsive');
@@ -57,6 +58,7 @@ const rename = gulp.task('rename', function () {
       return str.replace(/\s+/g, '_').toLowerCase()
     };
     return gulp.src( path.join(__dirname, config.paths.contents, '**/*.*'))
+      .pipe(changed(path.join(__dirname, config.paths.temp)))
       .pipe(gulprename(function (filepath) {
         filepath.dirname = filepath.dirname.split(path.sep).map(dir => slugify(dir)).join(path.sep);
         filepath.basename = slugify(filepath.basename);
@@ -89,6 +91,8 @@ const contents = gulp.task('contents', function(callback) {
     var options = plugins[key];
       ms.use(plugin(options));
   });
+  var ignore = require('metalsmith-ignore');
+  ms.use(ignore(['**/*.+(jpeg|jpg|gif|png|tiff|webp)']));
 
   ms.build(function(err) {
     if (err) {
@@ -108,12 +112,11 @@ const images = gulp.task('images', function(){
   } catch (ex) {
       //handleErr(ex);
   }
-  return gulp.src( path.join(__dirname, config.paths.temp, '/**/*.+(jpeg|jpg|png|tiff|webp)'))
+  return gulp.src( path.join(__dirname, config.paths.temp, '/**/*.+(jpeg|jpg|gif|png|tiff|webp)'))
     .pipe(cache('images'))
+    .pipe(changed(config.paths.destination)) // Ne marche pas car comme metalsmith a copié l'image, les redimensionnements ne sont pas calculés
     .pipe(responsive(config.images.config,config.images.options))
     .pipe(gulp.dest(path.join(__dirname, config.paths.destination)));
-
-
 });
 
 const styles = gulp.task('styles', function() {
@@ -146,14 +149,19 @@ const watch = gulp.task('watch', function() {
     'gulpfile.js', 
     './config/paths.js', 
   ], gulp.series('compile',reload));
+  //Styles
   gulp.watch([config.paths.styles+'/**/*'], gulp.series('styles'));
+  //Statics
   gulp.watch([config.paths.statics+'/**/*'], gulp.series('statics'));
+  //Images
   gulp.watch([
     './config/images.js', 
     '../config/images.js',
-    config.paths.contents+'/**/*.+(jpeg|jpg|png|tiff|webp)'
-  ], gulp.series('contents','images',reload));
-  gulp.watch([config.paths.contents+'/**/*'], gulp.series('prepare','contents',reload));
+    config.paths.contents+'/**/*.+(jpeg|jpg|gif|png|tiff|webp)'
+  ], gulp.series('prepare','contents','images',reload));
+  //Autres contenus
+  gulp.watch([config.paths.contents+'/**/*.!(jpeg|jpg|gif|png|tiff|webp)'], gulp.series('prepare','contents',reload));
+  //Templates
   gulp.watch([
     './config/metalsmith.js', 
     '../config/metalsmith.js',
