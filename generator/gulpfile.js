@@ -91,6 +91,8 @@ const contents = gulp.task('contents', function(callback) {
     var options = plugins[key];
       ms.use(plugin(options));
   });
+  
+  //Exclusion des images pour laisser travailler la tache 'image'
   var ignore = require('metalsmith-ignore');
   ms.use(ignore(['**/*.+(jpeg|jpg|gif|png|tiff|webp)']));
 
@@ -114,7 +116,7 @@ const images = gulp.task('images', function(){
   }
   return gulp.src( path.join(__dirname, config.paths.temp, '/**/*.+(jpeg|jpg|gif|png|tiff|webp)'))
     .pipe(cache('images'))
-    .pipe(changed(config.paths.destination)) // Ne marche pas car comme metalsmith a copié l'image, les redimensionnements ne sont pas calculés
+    .pipe(changed(config.paths.destination)) // Ne fonctionne que si les images sont exclues de metalmsith en premier lieu
     .pipe(responsive(config.images.config,config.images.options))
     .pipe(gulp.dest(path.join(__dirname, config.paths.destination)));
 });
