@@ -40,19 +40,25 @@ const reload = (callback) => {
   callback(); 
 }
 
-const clean = gulp.task('clean', function () {
+//******************
+//CLEANING
+//******************
+const cleanDist = gulp.task('clean:dist', function () {
     // Return the promise that del produces.
     return gulp.src(path.join(__dirname, config.paths.destination),{allowEmpty:true})
         .pipe(gulpclean({force: true,allowEmpty:true}))
 });
-
-const cleanTemp = gulp.task('cleanTemp', function () {
+const cleanTemp = gulp.task('clean:temp', function () {
     // Return the promise that del produces.
     return gulp.src(path.join(__dirname, config.paths.temp),{allowEmpty:true})
         .pipe(gulpclean({force: true}))
 });
+const clean = gulp.task('clean', gulp.series('clean:temp','clean:dist'));
 
-const rename = gulp.task('rename', function () {
+//******************
+//PREPARE
+//******************
+const rename = gulp.task('prepare:rename', function () {
     // rename via function
     let slugify = function(str){
       return str.replace(/\s+/g, '_').toLowerCase()
@@ -66,10 +72,12 @@ const rename = gulp.task('rename', function () {
       }))
       .pipe(gulp.dest(path.join(__dirname, config.paths.temp))); // ./dist/main/text/ciao/hello-goodbye.md
 });
+const prepare = gulp.task('prepare', gulp.series('prepare:rename'));
 
-const prepare = gulp.task('prepare', gulp.series('cleanTemp','rename'));
- 
-const contents = gulp.task('contents', function(callback) {
+//******************
+//BUILD
+//******************
+const contents = gulp.task('build:contents', function(callback) {
   try {
     let local_config = require('../config/metalsmith.js');
     console.log('local config found:','../config/metalsmith.js');
@@ -91,8 +99,6 @@ const contents = gulp.task('contents', function(callback) {
     var options = plugins[key];
       ms.use(plugin(options));
   });
-  
-  //Exclusion des images pour laisser travailler la tache 'image'
   var ignore = require('metalsmith-ignore');
   ms.use(ignore(['**/*.+(jpeg|jpg|gif|png|tiff|webp)']));
 
@@ -105,7 +111,7 @@ const contents = gulp.task('contents', function(callback) {
   });
 });
 
-const images = gulp.task('images', function(){
+const images = gulp.task('build:images', function(){
   // doc https://github.com/mahnunchik/gulp-responsive
   try {
     let local_config = require('../config/images.js');
@@ -116,12 +122,12 @@ const images = gulp.task('images', function(){
   }
   return gulp.src( path.join(__dirname, config.paths.temp, '/**/*.+(jpeg|jpg|gif|png|tiff|webp)'))
     .pipe(cache('images'))
-    .pipe(changed(config.paths.destination)) // Ne fonctionne que si les images sont exclues de metalmsith en premier lieu
+    .pipe(changed(path.join(__dirname, config.paths.destination)))
     .pipe(responsive(config.images.config,config.images.options))
     .pipe(gulp.dest(path.join(__dirname, config.paths.destination)));
 });
 
-const styles = gulp.task('styles', function() {
+const styles = gulp.task('build:styles', function() {
   return gulp.src(path.join(__dirname, config.paths.styles, '**/*.scss'))
     .pipe(sass({
       sourceComments: args.production ? false : true,
@@ -136,33 +142,36 @@ const styles = gulp.task('styles', function() {
     }))
 });
 
-const statics = gulp.task('statics', function() {
+const statics = gulp.task('build:statics', function() {
   return gulp.src(path.join(__dirname,config.paths.statics,'/**/*.*'))
     .pipe(gulp.dest(path.join(__dirname, config.paths.destination, 'statics')))
     .pipe(browserSync.reload({
       stream: true
     }));
 });
+const compile = gulp.task('build', gulp.series('prepare','build:contents',gulp.parallel(['build:styles', 'build:statics']),'build:images'));
 
-const compile = gulp.task('compile', gulp.series('prepare','contents',gulp.parallel(['styles', 'statics']),'images'));
 
+//******************
+//WATCH & SERVE
+//******************
 const watch = gulp.task('watch', function() {
   gulp.watch([
     'gulpfile.js', 
     './config/paths.js', 
-  ], gulp.series('compile',reload));
+  ], gulp.series('build',reload));
   //Styles
-  gulp.watch([config.paths.styles+'/**/*'], gulp.series('styles'));
+  gulp.watch([config.paths.styles+'/**/*'], gulp.series('build:styles'));
   //Statics
-  gulp.watch([config.paths.statics+'/**/*'], gulp.series('statics'));
+  gulp.watch([config.paths.statics+'/**/*'], gulp.series('build:statics'));
   //Images
   gulp.watch([
     './config/images.js', 
     '../config/images.js',
     config.paths.contents+'/**/*.+(jpeg|jpg|gif|png|tiff|webp)'
-  ], gulp.series('prepare','contents','images',reload));
+  ], gulp.series('prepare','build:contents','build:images',reload));
   //Autres contenus
-  gulp.watch([config.paths.contents+'/**/*.!(jpeg|jpg|gif|png|tiff|webp)'], gulp.series('prepare','contents',reload));
+  gulp.watch([config.paths.contents+'/**/*.!(jpeg|jpg|gif|png|tiff|webp)'], gulp.series('prepare','build:contents',reload));
   //Templates
   gulp.watch([
     './config/metalsmith.js', 
@@ -170,7 +179,7 @@ const watch = gulp.task('watch', function() {
     config.paths.layouts+'/**/*',
     config.paths.partials+'/**/*',
     config.paths.locales+'/**/*'
-  ], gulp.series('contents',reload));  
+  ], gulp.series('build:contents',reload));  
 });
 
 const serve = gulp.task('serve', function(callback) {
@@ -198,6 +207,6 @@ const serve = gulp.task('serve', function(callback) {
   });
 });
 
-gulp.task('start', gulp.series('compile', gulp.parallel(['watch','serve','browserSync'])));
+gulp.task('start', gulp.series('build', gulp.parallel(['watch','serve','browserSync'])));
 
 
