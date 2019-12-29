@@ -1,0 +1,32 @@
+// Variables
+
+// Color overrides
+
+//#34421e #f1f1ef #c19434 //olive
+//#00a9d8 #0d9edf #259b9a //blue scheme
+//#18181e #dec79b //dark jaune
+//#fb8122 #1d2228 #e1e2e2 //orange gris
+//#d48166 #373a36 #e6e2dd //beige
+//#fa292a #b89f5d #5a7670 //orange etc
+//#1f3044 #fb9039 #646c79 //gris bleu
+
+$color1:#4d724d !default; //couleur principale
+$color2:rgba(0, 0, 0, 0.8) !default; //dégradé image
+$color3:#1f3044 !default; //inutilisé
+
+// Set primary color to orange
+$primary: $color1 !default;
+$secondary: $color2 !default;
+$tertiary: $color3 !default;
+
+// Font overrides
+$font-family-sans-serif: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", 'Noto Color Emoji' !default;
+
+$font-family-serif: "Merriweather", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", 'Noto Color Emoji' !default;
+
+$font-family-base: $font-family-serif !default;
+
+$headings-font-family: $font-family-sans-serif !default;
+
+// Custom variables
+$navbar-height: 72px;

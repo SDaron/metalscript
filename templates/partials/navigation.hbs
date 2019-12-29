@@ -1,13 +1,35 @@
-      <header class="masthead mb-auto">
-        <div class="inner">
-          <h3 class="masthead-brand">{{ data.site.title }}</h3>
-          <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link {{#eq paths.dir ""}}active{{/eq}}" href="/">Home</a>
-            {{#each secteurs}}
+<!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="/">{{ data.site.name }}</a>
+      <a class="navbar-brand " href="#top">{{#if (and paths.dir name)}} - {{name}}{{/if}}</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto my-2 my-lg-0">
+        
+          {{#if paths.dir}}
+	          <!-- Sous répertoire -->
+            {{#each (match @root.pages (concat paths.dir '/*/index.md') sort='path')}}
               {{#unless hidden}}
-              <a class="nav-link {{#contains ../paths.dhref paths.dhref}}active{{/contains}} capFirst" href="{{paths.dhref}}">{{title}}</a>
+		            <li class="nav-item">
+		              <a class="cap-first nav-link js-scroll-trigger nowrap" href="#{{slug}}">{{#if name}}{{name}}{{else}}{{title}}{{/if}}</a>
+		            </li>
               {{/unless}}
             {{/each}}
-          </nav>
-        </div>
-      </header>
+          {{else}}
+            {{#each (match @root.pages (concat '*/index.md') sort='path')}}
+              {{#unless hidden}}
+		            <li class="nav-item">
+		              <a class="cap-first nav-link js-scroll-trigger nowrap" href="#{{slug}}">{{#if name}}{{name}}{{else}}{{title}}{{/if}}</a>
+		            </li>
+              {{/unless}}
+            {{/each}}
+          {{/if}}
+        
+          
+        </ul>
+      </div>
+    </div>
+  </nav>

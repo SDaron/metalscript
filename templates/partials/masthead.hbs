@@ -1,0 +1,29 @@
+  <!-- Masthead -->
+  
+  <style>
+    header.masthead{
+      {{#with (first (match @root.images (concat paths.dir '**/index.{jpg,gif,png}'))) as |cover|}}
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.8) 100%), url("{{cover.paths.href}}");
+      {{/with}}
+    }
+  </style>
+  <header class="masthead">
+  
+      <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+          <div class="col-lg-10 align-self-end">
+            <h1 class="text-uppercase text-white font-weight-bold">{{ title }}</h1>
+            <hr class="divider my-4">
+            {{#if author}}<div class="text-white-75 font-weight-bold mb-1">par {{author}}</div>{{/if}}
+            {{#if date}}<div class="text-white-75 mb-1">le {{moment date "LL" locale}}</div>{{/if}}
+          </div>
+          <div class="mt-5 col-lg-8 align-self-baseline">
+            <div class="text-white-75 font-weight-light mb-5">{{{ description }}}</div>
+            {{#with (first (match @root.pages (concat paths.dir '**/*/index.md') sort='path'))}}
+            <a class="btn btn-primary round js-scroll-trigger" href="#{{slug}}"><i class="fa fa-caret-down fs-150"></i></a>
+            {{/with}}
+            
+          </div>
+        </div>
+    </div>
+  </header>

@@ -1,0 +1,194 @@
+.fs-70{font-size:70%;}
+.fs-80{font-size:80%;}
+.fs-90{font-size:90%;}
+.fs-100{font-size:100%;}
+.fs-110{font-size:110%;}
+.fs-120{font-size:120%;}
+.fs-130{font-size:130%;}
+.fs-140{font-size:140%;}
+.fs-150{font-size:150%;}
+.fs-200{font-size:200%;}
+.fs-250{font-size:250%;}
+.fs-300{font-size:300%;}
+
+.noviceOnly{display:none;}
+.novice .noviceOnly{display:block;}
+.skilledOnly{display:none;}
+.skilled .skilledOnly{display:block;}
+.expertOnly{display:none;}
+.expert .expertOnly{display:block;}
+.underlined{ text-decoration: underline;}
+.button {cursor:pointer;}
+.absolute{position:absolute;}
+.relative{position:relative;}
+
+.fullPage, .fullSize{width:100%;height:100%;}
+.fullWidth{width:100%;}
+.fullHeight{height:100%;}
+.halfPage{width:50%;height:100%;}
+.halfHeight{height:50%;}
+.posLeft.left{left:0;}
+.posRight,.right{right:0;}
+.posBottom,.bottom{bottom:0;}
+.posTop,.top{top:0;}
+.auto{margin-left:auto;margin-right:auto;}
+
+.inline, ul.inline li,ol.inline li{display:inline;}
+.iblock, ul.iblock li,ol.iblock li{display:inline-block;}
+.block{display:block;}
+
+.padded {padding:1rem;}
+.marged {margin-top:1rem;margin-bottom:1rem;}
+.sligthlyMarged{margin:0.2rem;}
+.unmarged{margin:0 0 0 0 !important;}
+.unpadded{padding:0 0 0 0 !important;}
+a.unstyled, a.unstyled:hover, a.unstyled:focus{color:inherit;}
+
+.distinct{margin-top:0.5rem;margin-bottom:0.5rem;}
+.distinct.first{margin-top:0em;}
+
+.help{cursor: help;}
+
+.bold{font-weight:bold;}
+.italic{font-style:italic;}
+.smooth {opacity:0.5;}
+.right{display:block;float:right;margin-left:1em;text-align:right;}
+.text-right{text-align:right;}
+.left{display:block;float:left;margin-right:1em;}
+.html .right {margin-left:1em;}
+.html .left {margin-right:1em;}
+.html .right, .html .left {margin-bottom:1em;}
+.text-left{text-align:left}
+.clear{clear:both;}
+.justify{text-align:justify;}
+.center,.centre{display:block;float:none;text-align:center;margin-left:auto;margin-right:auto;}
+.center *{margin-left:auto;margin-right:auto;}
+.middle{vertical-align:middle;}
+button.focused{text-decoration:blink !important;}
+
+.upper{text-transform: uppercase;}
+.lower{text-transform: lowercase;}
+.capitalize,.capFirst{display:inline-block;}
+.capFirst:first-letter, .cap-first:first-letter,.capitalize:first-letter, .cap{text-transform:capitalize;}
+.sCaps{ font-variant: small-caps;}
+
+.red{color:red;}
+.green{color:green;}
+.yellow{color:yellow;}
+.orange{color:orange;}
+.blue{color:blue;}
+.bgWhite{background-color:white !important;}
+.color-inherit, .color-inherit:hover{color:inherit;}
+
+
+.overflowed{
+  max-width:100%;
+  overflow:auto;
+}
+.fixed{position:fixed;}
+.light{opacity:0.5;}
+.pointer{cursor:pointer;}
+.shadow{
+	box-shadow:0 5px 10px #aaa;
+}
+.ellipsis{ 
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.nowrap{ 
+	white-space: nowrap;
+}
+.fade {
+	overflow:hidden;
+	
+  position: relative;
+}
+.fade:after {
+  content: "";
+  text-align: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 70%;
+  height: 2em;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+}
+.rounded{border-radius:0.5em;-webkit-border-radius:0.5em;-moz-border-radius:0.5em;}
+.round{border-radius:100%;-webkit-border-radius:100%;-moz-border-radius:100%;}
+
+table.large,.table.large{width:100%;}
+.table{	display:table;padding:0 0 0 0;margin:0 0 0 0;border-collapse: collapse;}
+.table-row{display:table-row;width:auto;}
+.cell{display:table-cell;width:auto;}
+.cell.large{width:100%;}
+.extended{width:100%;height:100%;}
+.cell.center,.cell.middle, .middle .cell{vertical-align:middle ;}
+
+ul.custom, ul.custom li, ol.custom, ol.custom li{
+	padding:0 0 0 0;
+	margin:0 0 0 0;
+	column-gap: 0em;
+	list-style-type:none;
+}
+ul.distributed{
+	display:table;
+	width:100%;
+	margin:0;
+	padding:0;
+	border-collapse:collapse;
+}
+ul.distributed li{	display:table-cell;}
+ul.distributed.by2 li, .by2 .cell{	width:50%;}
+ul.distributed.by3 li, .by3 .cell{	width:33%;}
+ul.distributed.by4 li, .by4 .cell{	width:25%;}
+ul.distributed.by5 li, .by5 .cell{	width:20%;}
+ul.distributed.by6 li, .by6 .cell{	width:16.6666%;}
+ul.distributed.by7 li, .by7 .cell{ 	width:14.285%;}
+
+ul.padded > li, ol.padded > li{        padding:0 0.5em 0 0.5em;}
+
+.armenian {list-style-type:armenian;}
+.cjk-ideographic {list-style-type:cjk-ideographic;}
+.decimal {list-style-type:decimal;}
+.decimal-zero {list-style-type:decimal-leading-zero;}
+.georgian {list-style-type:georgian;}
+.hebrew {list-style-type:hebrew;}
+.hiragana {list-style-type:hiragana;}
+.hiragana-iroha {list-style-type:hiragana-iroha;}
+.inherit {list-style-type:inherit;}
+.katakana {list-style-type:katakana;}
+.katakana-iroha {list-style-type:katakana-iroha;}
+.lower-alpha {list-style-type:lower-alpha;}
+.lower-greek {list-style-type:lower-greek;}
+.lower-latin {list-style-type:lower-latin;}
+.lower-roman {list-style-type:lower-roman;}
+.none {list-style-type:none;}
+.upper-alpha {list-style-type:upper-alpha;}
+.upper-latin {list-style-type:upper-latin !important;}
+.upper-roman {list-style-type:upper-roman;}
+
+.square {list-style-type:square;}
+.disc {list-style-type:disc;}
+.circle {list-style-type:circle;}
+.comma {list-style-type:none;}
+.comma li:after {content: ", ";}
+.comma li:last-child:after {content: "";}
+
+
+.big{font-size:150%;}
+.huge{font-size:300%;}
+.small{font-size:90%;}
+.helptext{ opacity:0.5;margin:1em 0 1em 0;display:block;
+}
+
+.hide, .toHide, .hidden { display: none;}
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+.invisible { visibility: hidden; }
+.clearfix:before, .cf:before { border:none; content: ""; display: table; }
+.clearfix:after, .cf:after { clear: both; }
+.clearfix, .cf { *zoom: 1; clear: both;}
+
+.cover{ /* pour Chrome et Safari */ /* pour Firefox */ /* pour Opera */
+  background-size: cover; /* version standardisée */
+}

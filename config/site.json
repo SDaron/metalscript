@@ -1,0 +1,7 @@
+{
+		  "name": "Nom du site",
+		  "title": "Le titre principal du site",
+		  "description": "Donner une description du projet et du contenu en une ou deux lignes est un vrai plus pour la page d'acceuil",
+		  "url": "http://www.monsite.tld",
+		  "geo": {}
+}

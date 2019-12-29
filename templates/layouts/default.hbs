@@ -1,9 +1,30 @@
-{{> header}}
+<!DOCTYPE html>
+<html lang="en">
 
-        {{> page}}
-        {{#contains paths.dir "contact"}}
-            {{> contact}}
-        {{/contains}}
-        {{> directory}}
+{{> metas }}
 
-{{> footer}}
+<body id="page-top">
+
+  {{> navigation }}
+  
+  
+  {{#if paths.dir}}
+	<!-- Sous répertoire -->
+    {{> masthead}}
+    {{#if contents}}{{> page}}{{/if}}
+    {{#each (match @root.$ (concat  paths.dir '/*/index.md') sort='path')}}
+		  {{> section}}		
+    {{/each}}
+  {{else}}
+    {{> masthead title=data.site.title description=data.site.description}}
+    {{#if contents}}{{> page}}{{/if}}
+    {{#each (match @root.$ '*/index.md' sort='path')}}
+		  {{> section}}		
+    {{/each}}
+  {{/if}}
+
+  {{> footer }}
+  {{> scripts }}
+
+</body>
+</html>

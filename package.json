@@ -1,8 +1,10 @@
 {
   "scripts": {
     "clean": "cd generator && yarn clean",
+    "prepare": "cd generator && yarn prepare",
     "install": "cd generator && yarn install",
     "build": "cd generator && yarn build",
+    "nextcloud": "cd generator && yarn nextcloud",
     "start": "cd generator && yarn start"
   }
 }

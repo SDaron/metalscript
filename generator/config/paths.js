@@ -1,4 +1,6 @@
 module.exports = {
+    "config": "../config",
+    "nextcloud": "../nextcloud",
     "contents": "../contents",
     "templates": "../templates",
     "styles": "../templates/styles",

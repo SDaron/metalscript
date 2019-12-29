@@ -1,0 +1,145 @@
+
+  <style>
+    #{{slug}}{
+      {{#with (first (match @root.images (concat paths.dir '**/index.{jpg,gif,png}'))) as |cover|}}
+        background-size: cover;
+        background-position: 50% 50%;
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.8) 100%), url("{{cover.paths.href}}");
+      {{/with}}
+    }
+  </style>
+  <!-- About Section -->
+  <section class=" {{#if bg}}bg-{{bg}}{{/if}}" id="{{slug}}">
+    <div class="container page-section">
+      <div class="row justify-content-center">
+        <div class="col-10 col-lg-8 text-center">
+        
+          {{#if (eq type 'article')}}
+            <h2 class="{{#if bg}}text-bg{{/if}} mt-0 capitalize">{{{title}}}</h2>
+            <hr class="divider light my-4">
+            <div class="{{#if bg}}text-bg smooth{{/if}} mb-4">{{{description}}}</div>
+            <a class="btn btn-light btn-xl js-scroll-trigger" href="{{paths.dhref}}" >En savoir plus</a>
+          {{/if}}
+          {{#if (eq type)}}
+          
+            <h2 class="{{#if bg}}text-bg{{/if}} mt-0 capitalize">{{#if description}}{{{description}}}{{else}}{{title}}{{/if}}</h2>
+            <hr class="divider light my-4">
+            <div class="{{#if bg}}text-bg smooth{{/if}} mb-4">{{{body}}}</div>
+            <!--<a class="btn btn-light btn-xl js-scroll-trigger" href="#services">Get Started!</a>-->
+          {{/if}}
+          
+			    {{#with (match @root.$ (concat paths.dir '/*?index.*') sort='path') as |subcontents| }}
+			    
+				    {{#if subcontents}}
+              <div class="row {{#if ../bg}}text-bg{{/if}}">
+              
+					      {{#each subcontents}}
+                <div class="col-md text-center">
+                  <div class="mt-5">
+                    {{#if icon}}<i class="block fas fa-4x fa-{{icon}} text-primary mb-4"></i>{{/if}}
+                    <h3 class="h4 mb-2 capitalize">{{title}}</h3>
+                    <p class="smooth mb-0">{{#if description}}{{{description}}}{{else}}{{{body}}}{{/if}}</p>
+                  </div>
+                </div>
+					      {{/each}}
+					      
+              </div>
+				    {{/if}}
+				    
+			    {{/with}}
+
+			    {{#with (match @root.pages (concat paths.dir '/*/*index.md') sort='path') as |subdirs| }}
+				    {{#if subdirs}}
+              <div class="row {{#if ../bg}}text-bg{{/if}}">
+					    {{#each subdirs}}
+					    
+                <div class="col-md-6 text-center">
+                  <a href="{{paths.dhref}}" class="color-inherit mt-5 block">
+								    {{#with (first (match @root.images (concat paths.dir '/*index.*')))}}
+									    <img src="{{paths.dhref}}.thumbs/{{paths.name}}{{paths.ext}}" class="rounded block img-responsive mb-4">
+								    {{/with}}
+                    {{#if icon}}<i class="block fas fa-4x fa-{{icon}} text-primary mb-4"></i>{{/if}}
+                    <h3 class="h4 mb-2 capitalize">{{title}}</h3>
+                    {{#if description}}<p class="smooth mb-0">{{{description}}}</p>{{/if}}
+                  </a>
+                </div>
+					    {{/each}}
+              </div>
+				    {{/if}}
+			    {{/with}}
+          
+          
+    
+          {{#if (or telephone email)}}
+          <div class="container">
+            <div class="row">
+              {{#if telephone}}
+              <div class="col-md-4 ml-auto text-center mb-5 mb-lg-0">
+                <i class="fas fa-phone fa-3x mb-3 text-muted"></i>
+                <a class="d-block text-bg" href="tel:{{telephone}}">{{telephone}}</a>
+              </div>
+              {{/if}}
+              {{#if email}}
+              <div class="col-md-4 mr-auto text-center">
+                <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
+                <a class="d-block text-bg" href="mailto:{{email}}">{{email}}</a>
+              </div>
+              {{/if}}
+            </div>
+            {{/if}}
+            
+            {{#if (or twitter facebook github)}}
+            <div class="social d-flex justify-content-center mt-5">
+              {{#if twitter}}
+              <a href="#" class="mx-2 bg-secondary text-light">
+                <i class="fab fa-twitter"></i>
+              </a>
+              {{/if}}
+              {{#if facebook}}
+              <a href="#" class="mx-2 bg-secondary text-light">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              {{/if}}
+              {{#if github}}
+              <a href="#" class="mx-2 bg-secondary text-light">
+                <i class="fab fa-github"></i>
+              </a>
+              {{/if}}
+            </div>
+            {{/if}}
+      
+        </div>
+      </div>
+    </div>
+      
+    {{#with (match @root.images (concat paths.dir '/gallery/*.*')) as |gallery|}}
+      {{#if (length gallery)}}
+      <div id="portfolio" class="container-fluid p-0 mt-5 border-top border-{{#if bg}}{{bg}}{{else}}white{{/if}}">
+        <div class="row no-gutters">
+          {{#each gallery}}
+          <div class="col-lg-4 col-sm-6">
+            <a class="portfolio-box" href="{{paths.href}}">
+              <img class="img-fluid" src="{{paths.dhref}}.thumbs/{{paths.base}}" alt="">
+              <div class="portfolio-box-caption">
+                {{#if xmp.description}}
+                <div class="project-category text-white-50">
+                  {{xmp.description}}
+                </div>
+                {{/if}}
+                {{#if xmp.title}}
+                <div class="project-name">
+                  {{xmp.title}}
+                </div>
+                {{/if}}
+              </div>
+            </a>
+          </div>  
+          {{/each}}  
+        </div>
+      </div>
+      {{/if}}       
+    {{/with}}   
+      
+    </div>
+    
+  </section>

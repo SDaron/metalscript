@@ -1,10 +1,12 @@
 # Build output
-/dist
-/html
-/tmp
+dist
+html
+tmp
+node_modules
+nextcloud/nextcloud.json
 # Dependencies
 generator/node_modules
 generator/yarn.lock
 generator/yarn-error.log
-#others
+#Lock files
 .~lock*

@@ -3,8 +3,8 @@ const path = require('path');
 module.exports = {
     "metadata":{
       "creator":{
-  		  "name": "Simon P. Daron",
-	  	  "url": "https://www.linkedin.com/in/simon-daron-5b1bab8b/",
+  		  "name": "Simon Daron",
+	  	  "url": "http://simon.surlaterre.org/",
 	  	  "email": "simon@surlaterre.org"
       }
 	  },
@@ -12,12 +12,19 @@ module.exports = {
     "plugins": {
         "metalsmith-drafts": true,
         "metalsmith-data": {
-          "site": paths.contents+"/site.json"
+          "site": paths.config+"/site.json",
+          "nextcloud": {
+             src: paths.nextcloud+"/nextcloud.json",
+             options: {
+               ignoreMissingFile: true, //do not throw an error if the file is missing. Defaults to "false"
+             }          
+          }
         },
         "metalsmith-paths":{
           "property": "paths"
         },
         "metalsmith-xmp-reader":{
+          pattern: '**/*.+(jpeg|jpg|png)'
         },
         "metalsmith-default-values":[
           {

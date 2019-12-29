@@ -1,42 +1,20 @@
+
 <head>
-	<title>{{ data.site.title }}</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="{{ data.site.description }}">
-	<meta name="author" content="{{ author }}">
-  <link rel="icon" type="image/png" href="{{data.site.url}}/statics/favicon.png" />
 
-  <meta property="og:url" content="{{data.site.url}}" />
-  <meta property="og:site_name" content="{{ data.site.title }}"/>
-  <meta name="twitter:site" content="{{ data.site.title }}">
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="{{#if title}}{{ title }} - {{/if}}{{ data.site.title }}" />
-  <meta name="twitter:title" content="{{#if title}}{{ title }} - {{/if}}{{ data.site.title }}">
-  {{#if data.site.twitter}}<meta name="twitter:creator" content="@{{data.site.twitter}}">{{/if}}
-  <meta name="twitter:card" content="summary_large_image" />
-	<meta name="description" content="{{#if description}}{{ description }}{{else}}{{ data.site.description }}{{/if}}" />
-	<meta property="og:description" content="{{#if description}}{{ description }}{{else}}{{ data.site.description }}{{/if}}">
-  <meta name="twitter:description" content="{{#if description}}{{ description }}{{else}}{{ data.site.description }}{{/if}}" />
-  {{#if (match images (concat paths.dir '/*illu.{png,gif,jpg}'))}}
-    {{#select images (concat paths.dir '/*illu.{png,gif,jpg}')}}
-      <meta property="og:image" content="{{../data.site.url}}{{paths.href}}" />
-      <meta name="twitter:image" content="{{../data.site.url}}{{paths.href}}" />
-        {{#if width}}<meta property="og:image:width" content="{{width}}" />{{/if}}
-        {{#if height}}<meta property="og:image:height" content="{{height}}" />{{/if}}
-    {{/select}}
-  {{else}}
-      <meta property="og:image" content="{{data.site.url}}/statics/image.jpg" />
-      <meta name="twitter:image" content="{{data.site.url}}/statics/image.jpg" />
-  {{/if}}
-  {{#and data.site.geo.latitude data.site.geo.longitude}}<meta name="geo.position" content="{{data.site.geo.latitude}}; {{data.site.geo.longitude}}">{{/and}}
-  {{#if data.site.geo.placename}}<meta name="geo.placename" content="{{data.site.geo.placename}}">{{/if}}
-  {{#if data.site.geo.region}}<meta name="geo.region" content="{{data.site.geo.region}}">{{/if}}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <title>{{data.site.name}} - {{title}}</title>
 
-	<!-- Custom styles for this template -->
-	<link href="/statics/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<link href="/assets/app.css" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link href="/statics/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
+  <!-- Plugin CSS -->
+  <link href="/statics/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+  <!-- Theme CSS - Includes Bootstrap -->
+  <link href="/assets/app.css" rel="stylesheet">
 
 </head>

@@ -1,3 +1,15 @@
-@import "lib/classes.scss"; 
-@import "lib/polices.scss"; 
-@import "lib/styles.scss";
+// Import custom variables (overrides Bootstrap default variables)
+@import "./variables.scss";
+
+// Import Bootstrap
+@import "./bootstrap/scss/bootstrap.scss";
+// Import Classes
+@import "./classes.scss";
+// Import Fonts
+@import "./fonts.scss";
+
+// Import custom styles
+@import "./global.scss";
+@import "./navbar.scss";
+@import "./masthead.scss";
+@import "./portfolio.scss";
